@@ -24,6 +24,28 @@ public class Chessboard {
         clear();
     }
 
+    public String formatEigenvalue() {
+        StringBuilder builder = new StringBuilder();
+        for (Matrix matrix : upMatrixs) {
+            builder.append(matrix.formatEigenvalue());
+        }
+        for (Matrix matrix : middleMatrixs) {
+            builder.append(matrix.formatEigenvalue());
+        }
+        for (Matrix matrix : downMatrixs) {
+            builder.append(matrix.formatEigenvalue());
+        }
+        return builder.toString();
+    }
+
+    public void parseEigenvalue(String value) {
+        for (int i = 0; i < 3; i++) {
+            upMatrixs[i].parseEigenvalue(value.substring(i * 9, (i + 1) * 9));
+            middleMatrixs[i].parseEigenvalue(value.substring(i * 9 + 27, (i + 1) * 9 + 27));
+            downMatrixs[i].parseEigenvalue(value.substring(i * 9 + 54, (i + 1) * 9 + 54));
+        }
+    }
+
     public void clear() {
         this.upMatrixs = new Matrix[]{new Matrix(), new Matrix(), new Matrix()};
         this.middleMatrixs = new Matrix[]{new Matrix(), new Matrix(), new Matrix()};
@@ -104,6 +126,9 @@ public class Chessboard {
         builder.append(printRow(Type.DOWN, Type.MIDDLE));
         builder.append("\n");
         builder.append(printRow(Type.DOWN, Type.DOWN));
+        builder.append("\n");
+        builder.append("特征值为: ");
+        builder.append(formatEigenvalue());
         builder.append("\n");
         return builder.toString();
     }

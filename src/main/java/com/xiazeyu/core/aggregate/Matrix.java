@@ -1,6 +1,7 @@
 package com.xiazeyu.core.aggregate;
 
 import com.xiazeyu.core.constants.Type;
+import com.xiazeyu.core.utils.CommonUtil;
 import lombok.Data;
 
 import java.util.Set;
@@ -23,6 +24,25 @@ public class Matrix {
         clear();
     }
 
+    public String formatEigenvalue() {
+        char[] chars = new char[9];
+        for (int i = 0; i < 3; i++) {
+            chars[i] = CommonUtil.intToChar(upItems[i]);
+            chars[i + 3] = CommonUtil.intToChar(middleItems[i]);
+            chars[i + 6] = CommonUtil.intToChar(downItems[i]);
+        }
+        return new String(chars);
+    }
+
+    public void parseEigenvalue(String value) {
+        char[] chars = value.toCharArray();
+        for (int i = 0; i < 3; i++) {
+            upItems[i] = CommonUtil.charToInt(chars[i]);
+            middleItems[i] = CommonUtil.charToInt(chars[i + 3]);
+            downItems[i] = CommonUtil.charToInt(chars[i + 6]);
+        }
+    }
+
     public void clear() {
         this.upItems = new int[3];
         this.middleItems = new int[3];
@@ -31,15 +51,9 @@ public class Matrix {
 
     public Matrix copy() {
         Matrix matrix = new Matrix();
-        for (int i = 0; i < upItems.length; i++) {
-            matrix.upItems[i] = upItems[i];
-        }
-        for (int i = 0; i < middleItems.length; i++) {
-            matrix.middleItems[i] = middleItems[i];
-        }
-        for (int i = 0; i < downItems.length; i++) {
-            matrix.downItems[i] = downItems[i];
-        }
+        System.arraycopy(upItems, 0, matrix.upItems, 0, upItems.length);
+        System.arraycopy(middleItems, 0, matrix.middleItems, 0, middleItems.length);
+        System.arraycopy(downItems, 0, matrix.downItems, 0, downItems.length);
         return matrix;
     }
 

@@ -17,7 +17,7 @@ public class GenerateGame {
 //        seed.init(chessboard);
         chessboard.parseEigenvalue("892315764165427983437986521438259671679831542215674398146527983298314756753869142");
         log.info("原始棋盘: {}", chessboard.print());
-        Chessboard gameChessboard = seed.initEmpty(chessboard, Level.SIMPLE);
+        Chessboard gameChessboard = seed.initEmpty(chessboard, Level.NORMAL);
         log.info("游戏棋盘: {}", gameChessboard.print());
         return gameChessboard;
     }

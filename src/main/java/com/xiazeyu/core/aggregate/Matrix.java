@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 /**
  * 矩阵
+ * 1-9个数字组成
  */
 @Data
 public class Matrix {

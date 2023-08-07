@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 /**
  * 棋盘
- * 由1-9
+ * 由1-9矩阵组成
  */
 @Data
 public class Chessboard {

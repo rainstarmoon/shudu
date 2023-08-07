@@ -2,6 +2,7 @@ package com.xiazeyu.core.aggregate;
 
 import com.xiazeyu.core.bean.Coordinate;
 import com.xiazeyu.core.bind.Ruler;
+import com.xiazeyu.core.constants.CommonConstant;
 import com.xiazeyu.core.constants.Level;
 import com.xiazeyu.core.constants.Type;
 import com.xiazeyu.core.exception.InitException;
@@ -21,9 +22,6 @@ public class Seed {
 
     private Random random = new Random();
 
-    public Seed() {
-    }
-
     /**
      * 初始化
      *
@@ -31,7 +29,7 @@ public class Seed {
      * @throws InitException
      */
     public void init(Chessboard chessboard) throws InitException {
-        initChessboard(chessboard, 5);
+        initChessboard(chessboard, CommonConstant.retryTimes);
     }
 
     /**
@@ -47,7 +45,7 @@ public class Seed {
         }
         try {
             for (int matrix = 0; matrix < 9; matrix++) {
-                initMatrix(chessboard, matrix, 5);
+                initMatrix(chessboard, matrix, CommonConstant.retryTimes);
             }
         } catch (InitException e) {
             log.error(e.getMessage());
@@ -66,7 +64,6 @@ public class Seed {
      */
     private void initMatrix(Chessboard chessboard, int matrix, int times) throws InitException {
         if (times == 0) {
-            random = new Random();
             throw new InitException("数独重新生成");
         }
         try {
@@ -175,15 +172,9 @@ public class Seed {
      */
     private List<Integer> allNumbers() {
         List<Integer> numbers = new LinkedList<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(3);
-        numbers.add(4);
-        numbers.add(5);
-        numbers.add(6);
-        numbers.add(7);
-        numbers.add(8);
-        numbers.add(9);
+        for (int i = 1; i <= 9; i++) {
+            numbers.add(i);
+        }
         return numbers;
     }
 

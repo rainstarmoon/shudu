@@ -28,8 +28,8 @@ public enum Level {
 
     public int getEmptySize() {
         int emptySize = emptySizeMin + random.nextInt(emptySizeMax - emptySizeMin + 1);
-        if (emptySize >= 81) {
-            return 80;
+        if (emptySize >= CommonConstant.chessboardAllRange) {
+            return CommonConstant.chessboardAllRange - 1;
         }
         return emptySize;
     }

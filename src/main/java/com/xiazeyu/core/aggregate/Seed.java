@@ -2,6 +2,7 @@ package com.xiazeyu.core.aggregate;
 
 import com.xiazeyu.core.bean.Coordinate;
 import com.xiazeyu.core.bind.Ruler;
+import com.xiazeyu.core.constants.Level;
 import com.xiazeyu.core.constants.Type;
 import com.xiazeyu.core.exception.InitException;
 import lombok.Data;
@@ -18,10 +19,9 @@ import java.util.Random;
 @Data
 public class Seed {
 
-    private Random random;
+    private Random random = new Random();
 
     public Seed() {
-        this.random = new Random();
     }
 
     /**
@@ -31,7 +31,7 @@ public class Seed {
      * @throws InitException
      */
     public void init(Chessboard chessboard) throws InitException {
-        initChessboard(chessboard, 3);
+        initChessboard(chessboard, 5);
     }
 
     /**
@@ -47,7 +47,7 @@ public class Seed {
         }
         try {
             for (int matrix = 0; matrix < 9; matrix++) {
-                initMatrix(chessboard, matrix, 3);
+                initMatrix(chessboard, matrix, 5);
             }
         } catch (InitException e) {
             log.error(e.getMessage());
@@ -66,6 +66,7 @@ public class Seed {
      */
     private void initMatrix(Chessboard chessboard, int matrix, int times) throws InitException {
         if (times == 0) {
+            random = new Random();
             throw new InitException("数独重新生成");
         }
         try {
@@ -75,6 +76,7 @@ public class Seed {
                 while (true) {
                     int size = allNumbers.size();
                     if (size == 0) {
+                        log.error("错误棋盘: {}", chessboard.print());
                         throw new InitException("元素生成失败, 矩阵重新生成, matrix: " + matrix + ", item: " + item);
                     }
                     int noIndex = random.nextInt(size);
@@ -128,6 +130,42 @@ public class Seed {
         }
         coordinate.setItemIndex(item % 3);
         return coordinate;
+    }
+
+    /**
+     * 根据难度初始化空白
+     *
+     * @param chessboard
+     * @param level
+     * @return
+     */
+    public Chessboard initEmpty(Chessboard chessboard, Level level) {
+        Chessboard realChessboard = chessboard.copy();
+        int emptySize = level.getEmptySize();
+        int matrixEmptySize = emptySize / 9;
+        int otherEmptySize = emptySize % 9;
+        if (matrixEmptySize > 0) {
+            for (int matrix = 0; matrix < 9; matrix++) {
+                List<Integer> allNumbers = allNumbers();
+                for (int emptyIndex = 0; emptyIndex < matrixEmptySize; emptyIndex++) {
+                    int itemIndex = random.nextInt(allNumbers.size());
+                    int item = allNumbers.remove(itemIndex) - 1;
+                    Coordinate coordinate = calcCoordinate(matrix, item);
+                    realChessboard.setValue(coordinate, 0);
+                }
+            }
+        }
+        while (otherEmptySize > 0) {
+            int matrix = random.nextInt(9);
+            int item = random.nextInt(9);
+            Coordinate coordinate = calcCoordinate(matrix, item);
+            int value = realChessboard.getValue(coordinate);
+            if (value > 0) {
+                realChessboard.setValue(coordinate, 0);
+                otherEmptySize--;
+            }
+        }
+        return realChessboard;
     }
 
     /**

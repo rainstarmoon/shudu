@@ -14,7 +14,9 @@ public enum Ruler {
 
     ROW((chessboard, coordinate, no) -> !chessboard.getRowAllNumber(coordinate.getMatrixType(), coordinate.getItemType()).contains(no)),
 
-    COLUMN((chessboard, coordinate, no) -> !chessboard.getColumnAllNumber(coordinate.getMatrixIndex(), coordinate.getItemIndex()).contains(no)),
+    COLUMN((chessboard, coordinate, no) -> {
+        return !chessboard.getColumnAllNumber(coordinate.getMatrixIndex(), coordinate.getItemIndex()).contains(no);
+    }),
 
     ITEM((chessboard, coordinate, no) -> !chessboard.getMatrixByType(coordinate.getMatrixType())[coordinate.getMatrixIndex()].getAllNumber().contains(no));
 

@@ -29,6 +29,20 @@ public class Matrix {
         this.downItems = new int[3];
     }
 
+    public Matrix copy() {
+        Matrix matrix = new Matrix();
+        for (int i = 0; i < upItems.length; i++) {
+            matrix.upItems[i] = upItems[i];
+        }
+        for (int i = 0; i < middleItems.length; i++) {
+            matrix.middleItems[i] = middleItems[i];
+        }
+        for (int i = 0; i < downItems.length; i++) {
+            matrix.downItems[i] = downItems[i];
+        }
+        return matrix;
+    }
+
     public Set<Integer> getAllNumber() {
         Set<Integer> numbers = new TreeSet<>();
         numbers.addAll(getRowAllNumber(Type.UP));
@@ -73,11 +87,11 @@ public class Matrix {
         }
         int middleItem = middleItems[index];
         if (middleItem > 0) {
-            numbers.add(upItem);
+            numbers.add(middleItem);
         }
         int downItem = downItems[index];
         if (downItem > 0) {
-            numbers.add(upItem);
+            numbers.add(downItem);
         }
         return numbers;
     }
@@ -113,6 +127,7 @@ public class Matrix {
                 }
                 break;
         }
+        builder.append("|");
         return builder.toString();
     }
 

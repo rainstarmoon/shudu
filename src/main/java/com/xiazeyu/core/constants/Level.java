@@ -3,18 +3,35 @@ package com.xiazeyu.core.constants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Random;
+
 /**
  * 难度类型
  */
 @Getter
 @AllArgsConstructor
 public enum Level {
-    Very_simple(1, 26),
-    simple(27, 35),
-    normal(36, 44),
-    hard(45, 53),
-    Very_hard(54, 81);
+
+    VERY_SIMPLE(1, 26),
+
+    SIMPLE(27, 35),
+
+    NORMAL(36, 44),
+
+    HARD(45, 53),
+
+    VERY_HARD(54, 81);
 
     private final int emptySizeMin;
     private final int emptySizeMax;
+    private static final Random random = new Random();
+
+    public int getEmptySize() {
+        int emptySize = emptySizeMin + random.nextInt(emptySizeMax - emptySizeMin + 1);
+        if (emptySize >= 81) {
+            return 80;
+        }
+        return emptySize;
+    }
+
 }

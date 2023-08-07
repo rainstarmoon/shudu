@@ -30,8 +30,26 @@ public class Chessboard {
         this.downMatrixs = new Matrix[]{new Matrix(), new Matrix(), new Matrix()};
     }
 
+    public Chessboard copy() {
+        Chessboard chessboard = new Chessboard();
+        for (int i = 0; i < upMatrixs.length; i++) {
+            chessboard.upMatrixs[i] = upMatrixs[i].copy();
+        }
+        for (int i = 0; i < middleMatrixs.length; i++) {
+            chessboard.middleMatrixs[i] = middleMatrixs[i].copy();
+        }
+        for (int i = 0; i < downMatrixs.length; i++) {
+            chessboard.downMatrixs[i] = downMatrixs[i].copy();
+        }
+        return chessboard;
+    }
+
     public void setValue(Coordinate coordinate, int no) {
         getMatrixByType(coordinate.getMatrixType())[coordinate.getMatrixIndex()].getItemByType(coordinate.getItemType())[coordinate.getItemIndex()] = no;
+    }
+
+    public int getValue(Coordinate coordinate) {
+        return getMatrixByType(coordinate.getMatrixType())[coordinate.getMatrixIndex()].getItemByType(coordinate.getItemType())[coordinate.getItemIndex()];
     }
 
     public Matrix[] getMatrixByType(Type type) {
@@ -71,11 +89,15 @@ public class Chessboard {
         builder.append("\n");
         builder.append(printRow(Type.UP, Type.DOWN));
         builder.append("\n");
+        builder.append("------------------------------");
+        builder.append("\n");
         builder.append(printRow(Type.MIDDLE, Type.UP));
         builder.append("\n");
         builder.append(printRow(Type.MIDDLE, Type.MIDDLE));
         builder.append("\n");
         builder.append(printRow(Type.MIDDLE, Type.DOWN));
+        builder.append("\n");
+        builder.append("------------------------------");
         builder.append("\n");
         builder.append(printRow(Type.DOWN, Type.UP));
         builder.append("\n");

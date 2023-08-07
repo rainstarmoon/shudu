@@ -12,7 +12,7 @@ public class Game {
         Seed seed = new Seed();
         Chessboard chessboard = new Chessboard();
         seed.init(chessboard);
-        log.info(chessboard.print());
+        log.info("成功棋盘: {}", chessboard.print());
         Chessboard realChessboard = seed.initEmpty(chessboard, Level.SIMPLE);
         log.info(realChessboard.print());
     }

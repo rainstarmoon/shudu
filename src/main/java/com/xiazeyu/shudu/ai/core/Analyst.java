@@ -32,4 +32,15 @@ public class Analyst {
         return numberBeans;
     }
 
+    public List<NumberBean> remainingNumberBean(List<NumberBean> numberBeanList) {
+        Map<Integer, NumberBean> remainMap = new TreeMap<>();
+        for (NumberBean numberBean : numberBeanList) {
+            if (numberBean.getSize() > 0) {
+                remainMap.put(numberBean.getNo(), numberBean);
+            }
+        }
+        List<NumberBean> numberBeans = new ArrayList<>(remainMap.values());
+        numberBeans.sort(null);
+        return numberBeans;
+    }
 }

@@ -15,7 +15,7 @@
     <artifactId>shudu</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>nana</name>
+    <name>shudu</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -23,12 +23,9 @@
     </properties>
 
     <dependencyManagement>
-
     </dependencyManagement>
 
     <dependencies>
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

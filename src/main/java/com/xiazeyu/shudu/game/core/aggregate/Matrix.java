@@ -61,7 +61,7 @@ public class Matrix {
         Set<Integer> numbers = new TreeSet<>();
         numbers.addAll(getRowAllNumber(Type.UP));
         numbers.addAll(getRowAllNumber(Type.MIDDLE));
-        numbers.addAll(getRowAllNumber(Type.MIDDLE));
+        numbers.addAll(getRowAllNumber(Type.DOWN));
         return numbers;
     }
 

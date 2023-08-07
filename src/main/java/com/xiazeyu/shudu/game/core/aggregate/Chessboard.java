@@ -24,6 +24,10 @@ public class Chessboard {
         clear();
     }
 
+    public boolean isOver() {
+        return !formatEigenvalue().contains("0");
+    }
+
     public String formatEigenvalue() {
         StringBuilder builder = new StringBuilder();
         for (Matrix matrix : upMatrixs) {

@@ -73,7 +73,7 @@ public class Seed {
                 while (true) {
                     int size = allNumbers.size();
                     if (size == 0) {
-                        log.error("错误棋盘: {}", chessboard.print());
+                        // log.error("错误棋盘: {}", chessboard.print());
                         throw new InitException("元素生成失败, 矩阵重新生成, matrix: " + matrix + ", item: " + item);
                     }
                     int noIndex = random.nextInt(size);

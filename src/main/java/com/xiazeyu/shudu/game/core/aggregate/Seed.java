@@ -4,12 +4,11 @@ import com.xiazeyu.shudu.game.core.bean.Coordinate;
 import com.xiazeyu.shudu.game.core.bind.Ruler;
 import com.xiazeyu.shudu.game.core.constants.CommonConstant;
 import com.xiazeyu.shudu.game.core.constants.Level;
-import com.xiazeyu.shudu.game.core.constants.Type;
 import com.xiazeyu.shudu.game.core.exception.InitException;
+import com.xiazeyu.shudu.game.core.utils.CommonUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -68,8 +67,8 @@ public class Seed {
         }
         try {
             for (int item = 0; item < 9; item++) {
-                Coordinate coordinate = calcCoordinate(matrix, item);
-                List<Integer> allNumbers = allNumbers();
+                Coordinate coordinate = Coordinate.calcCoordinate(matrix, item);
+                List<Integer> allNumbers = CommonUtil.allNumbers();
                 while (true) {
                     int size = allNumbers.size();
                     if (size == 0) {
@@ -87,46 +86,10 @@ public class Seed {
             }
         } catch (InitException e) {
             log.error(e.getMessage());
-            Coordinate coordinate = calcCoordinate(matrix, 0);
+            Coordinate coordinate = Coordinate.calcCoordinate(matrix, 0);
             chessboard.getMatrixByType(coordinate.getMatrixType())[coordinate.getMatrixIndex()].clear();
             initMatrix(chessboard, matrix, times - 1);
         }
-    }
-
-    /**
-     * 计算坐标
-     *
-     * @param matrix
-     * @param item
-     * @return
-     */
-    private Coordinate calcCoordinate(int matrix, int item) {
-        Coordinate coordinate = new Coordinate();
-        switch (matrix / 3) {
-            case 0:
-                coordinate.setMatrixType(Type.UP);
-                break;
-            case 1:
-                coordinate.setMatrixType(Type.MIDDLE);
-                break;
-            case 2:
-                coordinate.setMatrixType(Type.DOWN);
-                break;
-        }
-        coordinate.setMatrixIndex(matrix % 3);
-        switch (item / 3) {
-            case 0:
-                coordinate.setItemType(Type.UP);
-                break;
-            case 1:
-                coordinate.setItemType(Type.MIDDLE);
-                break;
-            case 2:
-                coordinate.setItemType(Type.DOWN);
-                break;
-        }
-        coordinate.setItemIndex(item % 3);
-        return coordinate;
     }
 
     /**
@@ -143,11 +106,11 @@ public class Seed {
         int otherEmptySize = emptySize % 9;
         if (matrixEmptySize > 0) {
             for (int matrix = 0; matrix < 9; matrix++) {
-                List<Integer> allNumbers = allNumbers();
+                List<Integer> allNumbers = CommonUtil.allNumbers();
                 for (int emptyIndex = 0; emptyIndex < matrixEmptySize; emptyIndex++) {
                     int itemIndex = random.nextInt(allNumbers.size());
                     int item = allNumbers.remove(itemIndex) - 1;
-                    Coordinate coordinate = calcCoordinate(matrix, item);
+                    Coordinate coordinate = Coordinate.calcCoordinate(matrix, item);
                     realChessboard.setValue(coordinate, 0);
                 }
             }
@@ -155,7 +118,7 @@ public class Seed {
         while (otherEmptySize > 0) {
             int matrix = random.nextInt(9);
             int item = random.nextInt(9);
-            Coordinate coordinate = calcCoordinate(matrix, item);
+            Coordinate coordinate = Coordinate.calcCoordinate(matrix, item);
             int value = realChessboard.getValue(coordinate);
             if (value > 0) {
                 realChessboard.setValue(coordinate, 0);
@@ -164,18 +127,4 @@ public class Seed {
         }
         return realChessboard;
     }
-
-    /**
-     * 所有数字
-     *
-     * @return
-     */
-    private List<Integer> allNumbers() {
-        List<Integer> numbers = new LinkedList<>();
-        for (int i = 1; i <= 9; i++) {
-            numbers.add(i);
-        }
-        return numbers;
-    }
-
 }

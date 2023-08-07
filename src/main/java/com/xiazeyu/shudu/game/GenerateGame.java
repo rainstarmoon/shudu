@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GenerateGame {
 
-    public static void init() throws Exception {
+    public static Chessboard init() throws Exception {
         Seed seed = new Seed();
         Chessboard chessboard = new Chessboard();
 //        seed.init(chessboard);
@@ -19,6 +19,7 @@ public class GenerateGame {
         log.info("原始棋盘: {}", chessboard.print());
         Chessboard gameChessboard = seed.initEmpty(chessboard, Level.SIMPLE);
         log.info("游戏棋盘: {}", gameChessboard.print());
+        return gameChessboard;
     }
 
 }

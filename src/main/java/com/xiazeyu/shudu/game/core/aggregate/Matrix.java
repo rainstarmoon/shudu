@@ -1,7 +1,7 @@
-package com.xiazeyu.shudu.core.aggregate;
+package com.xiazeyu.shudu.game.core.aggregate;
 
-import com.xiazeyu.shudu.core.constants.Type;
-import com.xiazeyu.shudu.core.utils.CommonUtil;
+import com.xiazeyu.shudu.game.core.constants.Type;
+import com.xiazeyu.shudu.game.core.utils.CommonUtil;
 import lombok.Data;
 
 import java.util.Set;

@@ -1,6 +1,6 @@
-package com.xiazeyu.shudu.core.bean;
+package com.xiazeyu.shudu.game.core.bean;
 
-import com.xiazeyu.shudu.core.constants.Type;
+import com.xiazeyu.shudu.game.core.constants.Type;
 import lombok.Data;
 
 /**

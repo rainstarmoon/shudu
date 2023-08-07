@@ -1,11 +1,11 @@
-package com.xiazeyu.shudu.core.aggregate;
+package com.xiazeyu.shudu.game.core.aggregate;
 
-import com.xiazeyu.shudu.core.bean.Coordinate;
-import com.xiazeyu.shudu.core.bind.Ruler;
-import com.xiazeyu.shudu.core.constants.CommonConstant;
-import com.xiazeyu.shudu.core.constants.Level;
-import com.xiazeyu.shudu.core.constants.Type;
-import com.xiazeyu.shudu.core.exception.InitException;
+import com.xiazeyu.shudu.game.core.bean.Coordinate;
+import com.xiazeyu.shudu.game.core.bind.Ruler;
+import com.xiazeyu.shudu.game.core.constants.CommonConstant;
+import com.xiazeyu.shudu.game.core.constants.Level;
+import com.xiazeyu.shudu.game.core.constants.Type;
+import com.xiazeyu.shudu.game.core.exception.InitException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * 种子
+ * 生成种子
  */
 @Slf4j
 @Data

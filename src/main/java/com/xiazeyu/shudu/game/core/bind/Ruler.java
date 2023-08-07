@@ -1,7 +1,7 @@
-package com.xiazeyu.shudu.core.bind;
+package com.xiazeyu.shudu.game.core.bind;
 
-import com.xiazeyu.shudu.core.aggregate.Chessboard;
-import com.xiazeyu.shudu.core.bean.Coordinate;
+import com.xiazeyu.shudu.game.core.aggregate.Chessboard;
+import com.xiazeyu.shudu.game.core.bean.Coordinate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

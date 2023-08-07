@@ -1,4 +1,4 @@
-package com.xiazeyu.shudu.core.utils;
+package com.xiazeyu.shudu.game.core.utils;
 
 public class CommonUtil {
 
@@ -9,5 +9,4 @@ public class CommonUtil {
     public static int charToInt(char c) {
         return c - 48;
     }
-
 }

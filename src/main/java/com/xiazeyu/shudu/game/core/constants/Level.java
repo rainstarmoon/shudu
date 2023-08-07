@@ -1,4 +1,4 @@
-package com.xiazeyu.shudu.core.constants;
+package com.xiazeyu.shudu.game.core.constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

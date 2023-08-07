@@ -1,7 +1,7 @@
-package com.xiazeyu.shudu.core.exception;
+package com.xiazeyu.shudu.game.core.exception;
 
 /**
- * 初始化异常
+ * 棋盘初始化异常
  */
 public class InitException extends Exception {
 

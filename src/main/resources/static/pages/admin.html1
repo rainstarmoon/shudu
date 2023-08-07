@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理页</title>
+    <!-- 引入样式 -->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@nutui/nutui@latest-v3/dist/style.css"/>-->
+    <link rel="stylesheet" href="v3/style.css" />
+    <!-- 引入Vue -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+    <script src="js/vue.global.js"></script>
+    <!-- 引入NutUI组件库 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/@nutui/nutui@latest-v3/dist/nutui.umd.js"></script>-->
+    <script src="v3/nutui.umd.js"></script>
+    <!-- 引入axios -->
+    <script src="js/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <nut-table :columns="columns" :data="data"></nut-table>
+        <nut-button type="info" @click="add">新增</nut-button>
+        <nut-button type="success" @click="submit">提交</nut-button>
+    </div>
+    <script type="module">
+        const initData = (await axios({
+            url: "/init",
+            method: 'GET',
+            params: {}
+        })).data.data;
+
+        var vue;
+
+        function transferHeader(header) {
+            return {
+                id: header.id,
+                desc: header.desc,
+                sortNo: header.sortNo,
+                createTime: header.createTime,
+                render: () => {
+                    return Vue.h(nutui.Icon, {
+                        name: 'dongdong',
+                        onclick: function () {
+                            console(1)
+                        }
+                    });
+                },
+                renderUp: () => {
+                    return Vue.h(nutui.Icon, {
+                        name: 'rect-up',
+                        onclick: function () {
+                            if (header.sortNo > 1) {
+                                var current = vue.originData[header.sortNo - 1];
+                                var target = vue.originData[header.sortNo - 2];
+                                exchange(current, target);
+                                vue.data = showData(vue.originData);
+                            }
+                        }
+                    });
+                },
+                renderDown: () => {
+                    return Vue.h(nutui.Icon, {
+                        name: 'rect-down',
+                        onclick: function () {
+                            if (header.sortNo < vue.data.length) {
+                                var current = vue.originData[header.sortNo - 1];
+                                var target = vue.originData[header.sortNo];
+                                exchange(current, target);
+                                vue.data = showData(vue.originData);
+                            }
+                        }
+                    });
+                }
+            };
+        }
+
+        function exchange(source, target) {
+            var tmp = {};
+            tmp.id = target.id;
+            tmp.desc = target.desc;
+            tmp.createTime = target.createTime;
+            target.id = source.id;
+            target.desc = source.desc;
+            target.createTime = source.createTime;
+            source.id = tmp.id;
+            source.desc = tmp.desc;
+            source.createTime = tmp.createTime;
+        }
+
+        function showData(list) {
+            var tmpData = [];
+            list.forEach(function (header) {
+                tmpData.push(transferHeader(header));
+            });
+            return tmpData;
+        }
+
+        const app = Vue.createApp({
+            data: function () {
+                return {
+                    columns: [
+                        {
+                            title: 'sortNo',
+                            key: 'sortNo',
+                            align: 'center'
+                        },
+                        {
+                            title: 'id',
+                            key: 'id',
+                            align: 'center'
+                        },
+                        {
+                            title: 'desc',
+                            key: 'desc',
+                            align: 'center'
+                        },
+                        {
+                            title: '修改',
+                            key: 'render',
+                            align: 'center'
+                        },
+                        {
+                            title: '上移',
+                            key: 'renderUp',
+                            align: 'center'
+                        },
+                        {
+                            title: '下移',
+                            key: 'renderDown',
+                            align: 'center'
+                        },
+                    ],
+                    originData: [],
+                    data: []
+                }
+            },
+            created() {
+                vue = this;
+                this.originData = initData.formHeader;
+                this.data = showData(this.originData);
+            },
+            methods: {
+                add() {
+                    this.originData.push({
+                        desc: '请编辑',
+                        sortNo: this.data.length + 1,
+                    });
+                    this.data = showData(this.originData);
+                },
+                submit() {
+                    axios({
+                        url: "/clockIn/updateFormHeader",
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: vue.data
+                    }).then(function (res) {
+                        nutui.showNotify.success("修改成功");
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+                },
+            },
+        });
+        app.use(nutui);
+        app.mount("#app");
+
+
+    </script>
+</body>
+
+</html>

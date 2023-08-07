@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>打卡页</title>
+    <!-- 引入样式 -->
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@nutui/nutui@latest-v3/dist/style.css"/>-->
+    <link rel="stylesheet" type="text/css" href="nutui/v3/css/style.css"/>
+    <!-- 引入Vue -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+    <script src="common/js/vue.global.js"></script>
+    <!-- 引入NutUI组件库 -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/@nutui/nutui@latest-v3/dist/nutui.umd.js"></script>-->
+    <script src="nutui/v3/js/nutui.umd.min.js"></script>
+    <!-- 引入axios -->
+    <script src="common/js/axios.min.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <nut-form>
+        <nut-form-item v-for="(item,index) in formItem" :key="item.id" :label="item.desc" body-align="right">
+            <nut-switch active-color="green" v-model="item.value"></nut-switch>
+        </nut-form-item>
+        <nut-cell>
+            <nut-button plain type="primary" size="large" @click="submit" color="#7232dd">提交</nut-button>
+        </nut-cell>
+    </nut-form>
+</div>
+<script type="module">
+        const initData = (await axios({
+            url: "/init",
+            method: 'GET',
+            params: {}
+        })).data.data;
+        var vue;
+        const app = Vue.createApp({
+            data: function () {
+                return {
+                    formItem: []
+                }
+            },
+            created() {
+                vue = this;
+                this.formItem = initData.formItem;
+            },
+            methods: {
+                submit() {
+                    axios({
+                        url: "/clockIn/updateFrom",
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: vue.formItem
+                    }).then(function (res) {
+                        nutui.Notify.success("打卡成功");
+
+                         nutui.Dialog({
+            title: '基础弹框',
+            content: createVNode('span', { style: { color: 'red' } }, '我可以是一个自定义组件'),
+            onCancel,
+            onOk
+          });
+
+                        vue.formItem = res.data.data;
+                    }).catch(function (err) {
+                        console.log(err);
+                    });
+                },
+            },
+        });
+        app.use(nutui);
+        app.mount("#app");
+
+
+</script>
+</body>
+
+</html>

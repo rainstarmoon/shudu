@@ -24,10 +24,23 @@ public class Seed {
         this.random = new Random();
     }
 
+    /**
+     * 初始化
+     *
+     * @param chessboard
+     * @throws InitException
+     */
     public void init(Chessboard chessboard) throws InitException {
         initChessboard(chessboard, 3);
     }
 
+    /**
+     * 初始化棋盘
+     *
+     * @param chessboard
+     * @param times
+     * @throws InitException
+     */
     private void initChessboard(Chessboard chessboard, int times) throws InitException {
         if (times == 0) {
             throw new InitException("数独生成失败");
@@ -43,6 +56,14 @@ public class Seed {
         }
     }
 
+    /**
+     * 初始化矩阵
+     *
+     * @param chessboard
+     * @param matrix
+     * @param times
+     * @throws InitException
+     */
     private void initMatrix(Chessboard chessboard, int matrix, int times) throws InitException {
         if (times == 0) {
             throw new InitException("数独重新生成");
@@ -73,6 +94,13 @@ public class Seed {
         }
     }
 
+    /**
+     * 计算坐标
+     *
+     * @param matrix
+     * @param item
+     * @return
+     */
     private Coordinate calcCoordinate(int matrix, int item) {
         Coordinate coordinate = new Coordinate();
         switch (matrix / 3) {
@@ -102,6 +130,11 @@ public class Seed {
         return coordinate;
     }
 
+    /**
+     * 所有数字
+     *
+     * @return
+     */
     private List<Integer> allNumbers() {
         List<Integer> numbers = new LinkedList<>();
         numbers.add(1);

@@ -1,5 +1,6 @@
-package com.xiazeyu.core.bean;
+package com.xiazeyu.core.aggregate;
 
+import com.xiazeyu.core.bean.Coordinate;
 import com.xiazeyu.core.bind.Ruler;
 import com.xiazeyu.core.constants.Type;
 import com.xiazeyu.core.exception.InitException;
@@ -10,6 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 种子
+ */
 @Slf4j
 @Data
 public class Seed {

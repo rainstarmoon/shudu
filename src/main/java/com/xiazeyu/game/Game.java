@@ -1,7 +1,7 @@
-package com.xiazeyu.core.service;
+package com.xiazeyu.game;
 
-import com.xiazeyu.core.bean.Chessboard;
-import com.xiazeyu.core.bean.Seed;
+import com.xiazeyu.core.aggregate.Chessboard;
+import com.xiazeyu.core.aggregate.Seed;
 import com.xiazeyu.core.exception.InitException;
 import lombok.extern.slf4j.Slf4j;
 

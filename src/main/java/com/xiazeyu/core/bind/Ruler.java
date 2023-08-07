@@ -1,10 +1,13 @@
 package com.xiazeyu.core.bind;
 
-import com.xiazeyu.core.bean.Chessboard;
+import com.xiazeyu.core.aggregate.Chessboard;
 import com.xiazeyu.core.bean.Coordinate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 约束规则
+ */
 @Getter
 @AllArgsConstructor
 public enum Ruler {

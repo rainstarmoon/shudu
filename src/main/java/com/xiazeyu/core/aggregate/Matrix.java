@@ -1,4 +1,4 @@
-package com.xiazeyu.core.bean;
+package com.xiazeyu.core.aggregate;
 
 import com.xiazeyu.core.constants.Type;
 import lombok.Data;

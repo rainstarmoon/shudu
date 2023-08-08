@@ -4,6 +4,6 @@ public interface CommonConstant {
 
     int chessboardAllRange = 81;
 
-    int retryTimes = 5;
+    int retryTimes = 9;
 
 }

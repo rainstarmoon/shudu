@@ -14,16 +14,51 @@ import java.util.TreeSet;
 @Data
 public class Matrix {
 
+    /**
+     * 上层元素
+     */
     private int[] upItems;
 
+    /**
+     * 中层元素
+     */
     private int[] middleItems;
 
+    /**
+     * 下层元素
+     */
     private int[] downItems;
 
+    /**
+     * 新建矩阵
+     */
     public Matrix() {
         clear();
     }
 
+    /**
+     * 重置矩阵
+     */
+    public void clear() {
+        this.upItems = new int[3];
+        this.middleItems = new int[3];
+        this.downItems = new int[3];
+    }
+
+    /**
+     * 复制矩阵
+     */
+    public Matrix copy() {
+        Matrix matrix = new Matrix();
+        System.arraycopy(upItems, 0, matrix.upItems, 0, upItems.length);
+        System.arraycopy(middleItems, 0, matrix.middleItems, 0, middleItems.length);
+        System.arraycopy(downItems, 0, matrix.downItems, 0, downItems.length);
+        return matrix;
+    }
+
+    /**
+     * 格式化特征值
+     */
     public String formatEigenvalue() {
         char[] chars = new char[9];
         for (int i = 0; i < 3; i++) {
@@ -34,6 +69,9 @@ public class Matrix {
         return new String(chars);
     }
 
+    /**
+     * 解析特征值
+     */
     public void parseEigenvalue(String value) {
         char[] chars = value.toCharArray();
         for (int i = 0; i < 3; i++) {
@@ -43,20 +81,9 @@ public class Matrix {
         }
     }
 
-    public void clear() {
-        this.upItems = new int[3];
-        this.middleItems = new int[3];
-        this.downItems = new int[3];
-    }
-
-    public Matrix copy() {
-        Matrix matrix = new Matrix();
-        System.arraycopy(upItems, 0, matrix.upItems, 0, upItems.length);
-        System.arraycopy(middleItems, 0, matrix.middleItems, 0, middleItems.length);
-        System.arraycopy(downItems, 0, matrix.downItems, 0, downItems.length);
-        return matrix;
-    }
-
+    /**
+     * 矩阵的所有数字
+     */
     public Set<Integer> getAllNumber() {
         Set<Integer> numbers = new TreeSet<>();
         numbers.addAll(getRowAllNumber(Type.UP));
@@ -65,6 +92,9 @@ public class Matrix {
         return numbers;
     }
 
+    /**
+     * 按行获取所有数字
+     */
     public Set<Integer> getRowAllNumber(Type type) {
         Set<Integer> numbers = new TreeSet<>();
         switch (type) {
@@ -93,6 +123,9 @@ public class Matrix {
         return numbers;
     }
 
+    /**
+     * 按列获取所有数据
+     */
     public Set<Integer> getColumnAllNumber(int index) {
         Set<Integer> numbers = new TreeSet<>();
         int upItem = upItems[index];
@@ -110,6 +143,9 @@ public class Matrix {
         return numbers;
     }
 
+    /**
+     * 按行获取所有元素
+     */
     public int[] getItemByType(Type type) {
         switch (type) {
             case UP:
@@ -122,6 +158,9 @@ public class Matrix {
         return null;
     }
 
+    /**
+     * 按行打印
+     */
     public String printRow(Type type) {
         StringBuilder builder = new StringBuilder();
         switch (type) {
@@ -144,5 +183,4 @@ public class Matrix {
         builder.append("|");
         return builder.toString();
     }
-
 }

@@ -78,7 +78,7 @@ public class Seed {
                     int noIndex = random.nextInt(size);
                     int no = allNumbers.remove(noIndex);
                     if (Ruler.checkAll(chessboard, coordinate, no)) {
-                        // 未触发了行列块约束
+                        // 未触发 行 列 块 约束
                         chessboard.setValue(coordinate, no);
                         break;
                     }
